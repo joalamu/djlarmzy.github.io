@@ -187,7 +187,37 @@
     .gig p { color: var(--muted); font-size: .9rem; }
     .gig a { font-family: var(--stencil); font-weight: 700; font-size: .9rem; letter-spacing: .12em; text-transform: uppercase; border: 1.5px solid var(--line); padding: 7px 14px; transition: all .2s; }
     .gig a:hover { background: var(--red); border-color: var(--red); }
-
+/* ---------- MIXES ---------- */
+    .mixes { background: var(--bg-deep); }
+    .mixes-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 40px; }
+    .mixes-head h2 { font-family: var(--stencil); font-weight: 700; font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1; }
+    .mixes-head p { color: var(--muted); max-width: 44ch; margin-top: 14px; }
+    .mix-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .mix-filters button {
+      font-family: var(--stencil); font-weight: 700; font-size: .9rem; letter-spacing: .12em; text-transform: uppercase;
+      background: transparent; color: var(--muted); border: 1.5px solid var(--line); padding: 8px 16px; cursor: pointer; transition: all .2s;
+    }
+    .mix-filters button:hover { color: #fff; border-color: #fff; }
+    .mix-filters button.active { background: var(--red); border-color: var(--red); color: #fff; }
+    .mix-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 26px; }
+    .mix-card {
+      background: var(--bg-alt); border: 1px solid var(--line); padding: 22px 22px 22px 26px; position: relative;
+      transition: transform .25s, border-color .25s;
+    }
+    .mix-card::before { content: ""; position: absolute; left: 0; top: 22px; bottom: 22px; width: 3px; background: var(--red); }
+    .mix-card:hover { transform: translateY(-4px); border-color: rgba(225,34,41,.5); }
+    .mix-card.hide { display: none; }
+    .mix-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .mix-tag { font-size: .7rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--red); }
+    .mix-len { font-size: .8rem; color: var(--muted); }
+    .mix-card h3 { font-family: var(--stencil); font-weight: 700; font-size: 1.4rem; line-height: 1.2; margin-bottom: 6px; }
+    .mix-card > p { color: var(--muted); font-size: .9rem; margin-bottom: 18px; }
+    .mix-player { width: 100%; height: 120px; border: 0; display: block; background: var(--bg); }
+    .mix-placeholder {
+      height: 120px; display: grid; place-items: center; text-align: center; padding: 0 16px;
+      border: 1.5px dashed var(--line); color: var(--muted); font-size: .8rem; line-height: 1.5;
+    }
+    .mixes-more { text-align: center; margin-top: 44px; }
     /* ---------- BANNER ---------- */
     .banner {
       height: 70vh; min-height: 360px; position: relative; display: grid; place-items: center; overflow: hidden;
@@ -256,6 +286,7 @@
       <button class="menu-btn" aria-label="Open menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
       <div class="nav-links">
         <a href="#bio">Bio</a>
+        <a href="#mixes">Mixes</a>
         <a href="#gigs">Gigs</a>
         <a href="#contact">Bookings</a>
         <div class="socials">
@@ -318,7 +349,61 @@ Behind the decks, Larmzy brings the same discipline and attention to detail that
         </div>
       </div>
     </section>
+<!-- MIXES -->
+    <section id="mixes" class="mixes">
+      <div class="wrap">
+        <div class="mixes-head reveal">
+          <div>
+            <p class="eyebrow">Listen</p>
+            <h2>Latest <span class="red">mixes</span></h2>
+            <p>Press play to hear the Larmzy sound. Filter by genre to find your vibe.</p>
+          </div>
+          <div class="mix-filters" id="mixFilters">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="afrobeats">Afrobeats</button>
+            <button data-filter="amapiano">Amapiano</button>
+            <button data-filter="afrohouse">Afro-house</button>
+          </div>
+        </div>
 
+        <div class="mix-grid reveal">
+          <!--
+            ONE CARD PER MIX. For each mix:
+            1. Set data-genre to afrobeats, amapiano or afrohouse (match a filter button).
+            2. Edit the tag, length, title and description.
+            3. Replace the .mix-placeholder div with your player, e.g.
+               Mixcloud:   <iframe class="mix-player" src="https://www.mixcloud.com/widget/iframe/?hide_cover=1&light=0&feed=%2FYOUR-USERNAME%2FYOUR-MIX-NAME%2F" allow="autoplay" loading="lazy"></iframe>
+               SoundCloud: <iframe class="mix-player" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/YOUR-USERNAME/YOUR-TRACK&color=%23e12229&visual=false" allow="autoplay" loading="lazy"></iframe>
+               (Easiest: on SoundCloud or Mixcloud click Share → Embed, copy the src="..." link.)
+          -->
+          <article class="mix-card" data-genre="afrobeats">
+            <div class="mix-meta"><span class="mix-tag">Afrobeats</span><span class="mix-len">60 min</span></div>
+            <h3>Mix title goes here</h3>
+            <p>One line about the vibe, e.g. recorded live at… / best of 2026.</p>
+            <div class="mix-placeholder">Paste your SoundCloud or Mixcloud embed here</div>
+          </article>
+
+          <article class="mix-card" data-genre="amapiano">
+            <div class="mix-meta"><span class="mix-tag">Amapiano</span><span class="mix-len">45 min</span></div>
+            <h3>Mix title goes here</h3>
+            <p>One line about the vibe of this mix.</p>
+            <div class="mix-placeholder">Paste your SoundCloud or Mixcloud embed here</div>
+          </article>
+
+          <article class="mix-card" data-genre="afrohouse">
+            <div class="mix-meta"><span class="mix-tag">Afro-house</span><span class="mix-len">50 min</span></div>
+            <h3>Mix title goes here</h3>
+            <p>One line about the vibe of this mix.</p>
+            <div class="mix-placeholder">Paste your SoundCloud or Mixcloud embed here</div>
+          </article>
+        </div>
+
+        <div class="mixes-more">
+          <a href="https://soundcloud.com/" target="_blank" rel="noopener" class="btn ghost">All mixes</a>
+        </div>
+      </div>
+    </section>
+    
     <!-- GIGS -->
     <section id="gigs" class="gigs">
       <div class="wrap">
@@ -395,6 +480,14 @@ Behind the decks, Larmzy brings the same discipline and attention to detail that
     const html = words.map(w => '<span>' + w + '</span>').join('');
     strip.innerHTML = html.repeat(4);
 
+     // Mix genre filters
+    document.querySelectorAll('#mixFilters button').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('#mixFilters button').forEach(b => b.classList.toggle('active', b === btn));
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.mix-card').forEach(c =>
+        c.classList.toggle('hide', f !== 'all' && c.dataset.genre !== f));
+    }));
+    
     // Reveal on scroll
     const io = new IntersectionObserver(es => es.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
