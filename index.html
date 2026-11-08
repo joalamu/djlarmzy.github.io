@@ -388,10 +388,7 @@ Behind the decks, Larmzy brings the same discipline and attention to detail that
     window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
     // Hide the photo hint once a real portrait loads
-    const probe = new Image();
-    probe.onload = () => document.querySelector('.photo-hint')?.remove();
-    probe.src = 'images/hero-portrait.jpg';
-
+    
     // Marquee strip
     const words = ['AFROBEATS', '✦', 'AMAPIANO', '✦', 'AFRO-HOUSE', '✦', 'DJ LARMZY', '✦'];
     const strip = document.getElementById('strip');
